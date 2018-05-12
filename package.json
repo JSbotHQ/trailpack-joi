@@ -1,7 +1,7 @@
 {
   "name": "trailpack-joi",
-  "version": "0.0.0",
-  "description": "A new Trails.js Application",
+  "version": "1.0.0",
+  "description": "A Trailpack for joi schema validation",
   "homepage": "http://trailsjs.io",
   "author": {
     "name": "sagar",
@@ -16,13 +16,15 @@
     "trailjs"
   ],
   "dependencies": {
-    "trailpack": "latest"
+    "lodash": "^4.17.4",
+    "trailpack": "^2.1.2",
+    "trails": "^2",
+    "trails-policy": "^2.0.0"
   },
   "devDependencies": {
-    "lodash": "^4.11.1",
-    "trails": "latest",
     "eslint": "^2.4",
     "eslint-config-trails": "^1.0.4",
+    "lodash": "^4.17.10",
     "mocha": "^2.4.5",
     "smokesignals": "^1.0.9",
     "trailpack-core": "^1.0.0-beta-6"
@@ -36,6 +38,6 @@
   "eslintConfig": {
     "extends": "trails"
   },
-  "repository": "saagar1/trailpack-joi",
+  "repository": "JSbotHQ/trailpack-joi",
   "license": "MIT"
 }

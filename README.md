@@ -1,11 +1,6 @@
 # trailpack-joi
 
-[![NPM version][npm-image]][npm-url]
-[![Build status][ci-image]][ci-url]
-[![Dependency Status][daviddm-image]][daviddm-url]
-[![Code Climate][codeclimate-image]][codeclimate-url]
-
-
+Trailpack validation for Trails application using joi schema validator
 
 ## Install
 
@@ -25,12 +20,81 @@ module.exports = {
 }
 ```
 
-[npm-image]: https://img.shields.io/npm/v/trailpack-joi.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/trailpack-joi
-[ci-image]: https://img.shields.io/travis//trailpack-joi/master.svg?style=flat-square
-[ci-url]: https://travis-ci.org//trailpack-joi
-[daviddm-image]: http://img.shields.io/david//trailpack-joi.svg?style=flat-square
-[daviddm-url]: https://david-dm.org//trailpack-joi
-[codeclimate-image]: https://img.shields.io/codeclimate/github//trailpack-joi.svg?style=flat-square
-[codeclimate-url]: https://codeclimate.com/github//trailpack-joi
+Now create a new directory **schemas** in **/api**
 
+```js
+//api/schemas/AuthValidator.js
+
+const Joi = require('joi');
+
+module.exports = class AuthValidator {
+
+  signup() {
+
+    return Joi.object().keys({
+      name   : Joi.string().min(1).max(20).regex(/^[a-zA-Z ]+$/)
+       .error(new Error('Name can contains only letters')),
+      username : Joi.string().min(5).max(50).regex(/^[a-zA-Z0-9]+$/).required()
+       .error(new Error('Username should contain letters and numbers, also it should contains min 5 characters')),
+      email   : Joi.string().email().min(5).max(50).required()
+       .error(new Error('Invalid email')),
+      password: Joi.string().trim().min(5).max(20).required()
+       .error(new Error('Invalid password')),
+      country_code: Joi.string().trim().min(1).max(4).required()
+       .error(new Error('Invalid country code')),
+      mobile: Joi.string().trim().min(4).max(12).required()
+       .error(new Error('Invalid mobile')),
+    })
+  }
+}
+
+```
+
+create **index.js** file for schemas
+
+```js
+//api/schemas/index.js
+'use strict'
+
+exports.AuthValidator = require('./AuthValidator')
+
+```
+
+Then make sure to add schemas directory in **api/index.js**
+
+```
+//api/index.js
+...
+exports.schemas = require('./schemas')
+```
+
+And to configure validators:
+
+```js
+// config/validators.js
+'use strict'
+
+module.export = {
+  AuthController: {
+    signup: 'AuthValidator.signup'
+  }
+};
+```
+
+Then make sure to include the new file in **config/index.js**
+
+```
+//config/index.js
+...
+exports.validators = require('./validators')
+```
+
+## Usage
+
+### Policies 
+Now you can apply some policies to control schema validation under `config/policies.js` 
+```
+  AuthController: {
+    "signup": ['JoiPolicy.validate'],
+  }
+```

@@ -1,1 +1,1 @@
-exports.Joi = require('./Joi')
+exports.JoiPolicy = require('./JoiPolicy')

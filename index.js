@@ -1,6 +1,7 @@
 'use strict'
 
 const Trailpack = require('trailpack')
+const _ = require('lodash')
 
 module.exports = class JoiTrailpack extends Trailpack {
 
@@ -23,13 +24,14 @@ module.exports = class JoiTrailpack extends Trailpack {
    */
   configure () {
 
+    return Promise.resolve()
   }
 
   /**
    * TODO document method
    */
   initialize () {
-
+    return Promise.resolve()
   }
 
   constructor (app) {
