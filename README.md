@@ -74,7 +74,7 @@ And to configure validators:
 // config/validators.js
 'use strict'
 
-module.export = {
+module.exports = {
   AuthController: {
     signup: 'AuthValidator.signup'
   }

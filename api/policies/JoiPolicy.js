@@ -19,11 +19,15 @@ module.exports = class JoiPolicy extends Policy {
   validate(req, res, next) {
 
     const Schemas = this.app.api.schemas
+    let { routes, validators } = this.app.config
+
     try {
 
-      let { handler } = this.app.config.routes.find(r=>r.path==req.route.path)
+      if(!validators && !!Object.keys(validators).length) throw new Error('The config/validators.js can\'t be empty')
+      let reqMethod = Object.keys(req.route.methods)[0].toUpperCase()
+      let { handler } = routes.find(r=>r.path==req.route.path && r.method==reqMethod)
       let [ controller, method ] = handler.split('.')
-      let validation = this.app.config.validators[controller][method]
+      let validation = validators[controller][method]
       if(!validation) throw new Error('please provide validation in config/validators.js')
       let [module, schema] = validation.split('.')
 
