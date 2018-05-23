@@ -23,7 +23,7 @@ module.exports = class JoiPolicy extends Policy {
 
     try {
 
-      if(!validators && !!Object.keys(validators).length) throw new Error('The config/validators.js can\'t be empty')
+      if(!validators || !Object.keys(validators).length) throw new Error('The config/validators.js can\'t be empty')
       let reqMethod = Object.keys(req.route.methods)[0].toUpperCase()
       let { handler } = routes.find(r=>r.path==req.route.path && r.method==reqMethod)
       let [ controller, method ] = handler.split('.')
