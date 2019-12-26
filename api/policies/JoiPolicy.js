@@ -2,6 +2,7 @@
 
 const Policy = require('trails-policy')
 const Joi = require('joi')
+const _ = require('lodash')
 
 /**
  * @module JoiPolicy
