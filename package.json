@@ -22,7 +22,7 @@
     "trails-policy": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.4",
+    "eslint": "^6.8",
     "eslint-config-trails": "^1.0.4",
     "lodash": "^4.17.10",
     "mocha": "^2.4.5",
